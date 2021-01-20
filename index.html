@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <link rel="stylesheet" href="style.css"> -->
+	<title>Document</title>
+
+	<style>
+		
+.wrap {
+display: grid;
+grid-template-columns: 1fr;
+grid-template-rows: 1fr;
+overflow: hidden;
+
+}
+h1{
+	color: white;
+	margin: 300px;
+	font-size: 64px;
+	border: 5px solid white;
+	min-width: 350px;
+	padding: 50px;
+	text-align: center;
+}
+
+/*.box1 { grid-area: 1 / 1 / 2 / 2; }
+.box2 { grid-area: 1 / 1 / 2 / 2; }
+.box3 { grid-area: 1 / 1 / 2 / 2; }
+.box4 { grid-area: 1 / 1 / 2 / 2; }
+.box5 { grid-area: 1 / 1 / 2 / 2; }*/
+/*.box1{
+	transform: scale(1);
+}*/
+			 
+	
+	</style>
+</head>
+<body>
+
+	<div class="wrap"></div>
+
+
+		<script>
+		let wrap = document.querySelector(".wrap");
+		wrap.style.maxWidth = "100%";		
+		wrap.style.margin = '0 auto';
+		wrap.style.height = '900px';		
+	
+		
+		class Dodiv {
+			constructor(){				
+				
+			}
+
+			static makediv(number, bgImg, text){
+				//создаем здесь переменные, т.к. метод статический
+				this.bgImg = bgImg;
+				this.number = number;
+				this.text = text;					
+				//создаем див
+				this.div = document.createElement('div');
+				wrap.append(this.div);
+				// создаем тег Н1 и надпись
+				this.h1 = document.createElement('h1');
+				this.div.append(this.h1);
+				this.h1.innerHTML = this.text;
+				// присваиваем класс диву - box1, box2 и т.д.
+				this.div.className = "box"+this.number+ " box";
+				// this.div.style.width = this.width;
+				// this.div.style.height = this.height;
+				// делаем затемнение картинкам и задаем стили картинкам
+				this.div.style.backgroundImage = ' linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),url('+this.bgImg+')';
+				this.div.style.backgroundRepeat = 'no-repeat';
+				this.div.style.backgroundPosition = 'center';
+				this.div.style.backgroundSize = 'cover';
+				
+
+
+				this.div.style.margin = '10px 0px 0 20px';
+
+				// задаем свойства grid сетки
+				this.div.style.gridArea = '1 / 1 / 2 / 2';
+
+				this.div.style.paddingLeft = '10px';
+				//this.div.style.position = 'absolute';
+				this.div.style.minWidth = '640px';
+				//this.div.style.height = '480px';
+				this.div.style.transition = '1s';
+				
+			}
+
+
+			static opacityStyle(namedBox){				
+				this.namedBox = document.querySelector('.box'+namedBox);
+				this.namedBox.style.opacity = 0;
+					
+			}
+			static rotationStyle(namedBox){
+				this.namedBox = document.querySelector('.box'+namedBox);
+				this.namedBox.style.transform = 'rotate(360deg)';
+				this.namedBox.style.opacity = 0;
+
+			}
+			static translateStyle(namedBox){
+				this.namedBox = document.querySelector('.box'+namedBox);
+				this.namedBox.style.opacity = 0;
+				this.namedBox.style.transform = 'translate(700px)';
+								
+				
+			}
+
+			static rotateXStyle(namedBox){
+				this.namedBox = document.querySelector('.box'+namedBox);
+				this.namedBox.style.opacity = 0;				
+				this.namedBox.style.transform = 'rotateX(180deg)';
+
+				
+			}
+			static scaleStyle(namedBox){
+				this.namedBox = document.querySelector('.box'+namedBox);
+				this.namedBox.style.opacity = 0;				
+				this.namedBox.style.transform = 'scale(0)';	
+						
+			}
+
+
+		}
+
+		
+		//Создать дивы с фотографиями (порядковый номер, путь к фото, надпись)
+		Dodiv.makediv(5, "img/5.jpg", "ПЯТЫЙ");
+
+		Dodiv.makediv(4, "img/4.jpg", "ЧЕТВЕРТЫЙ");
+
+		Dodiv.makediv(3, "img/3.jpg", "ТРЕТИЙ");
+
+		Dodiv.makediv(2, "img/2.jpg", "ВТОРОЙ");
+
+		Dodiv.makediv(1, "img/1.jpg", 'ПЕРВЫЙ');
+		
+		// Обработчик, в цикле функция cycle() запускает метод c эффектом перехода
+
+
+		let boxes = document.querySelectorAll('.box');
+
+		
+			let timerId1 = setInterval(()=>cycle(), 3000); //
+			let count = 1;
+			
+			function cycle(){	
+						
+				Dodiv.scaleStyle(count);
+
+				count++;
+				
+				if(count>boxes.length){					
+					for(box of boxes){
+						box.style.opacity = '';						
+						if(Dodiv.rotateXStyle || Dodiv.translateStyle || Dodiv.scaleStyle){
+							box.style.transform ='';					
+						}						
+					}
+					count = 1;
+
+				}
+
+			}
+		
+
+
+		</script>
+
+
+	</div>
+	
+</body>
+</html>
